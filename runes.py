@@ -45,6 +45,17 @@ class RunePr(BaseRune):
         return max(damage - self._level, 0)
 
 
+class RuneAt(...):
+    """Attack rune.
+
+    Gives an extra damage to your weapon depending on rune's level.
+    """
+
+    def encrease_damage(...) -> ...:
+        """Add rune lelel's value to your weapon's damage."""
+        ...
+
+
 class RuneAc(BaseRune):
     """Acura rune.
 

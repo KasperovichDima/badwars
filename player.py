@@ -11,12 +11,12 @@ class Player:
         self._weapon = weapon
         self._hp = 20  # FIXME: Magic number!
 
-    def make_damage(self, damage_object: Damageble) -> None:
+    def make_damage(self, damageble_object: Damageble) -> None:
         """Hit some damageble object using self weapon.
 
         Runes can be applied here.
         """
-        self._weapon.hit(damage_object)
+        self._weapon.hit(damageble_object)
 
     def get_damage(self, damage: int) -> None:
         """Get damage from other player.
