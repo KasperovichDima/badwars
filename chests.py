@@ -1,8 +1,10 @@
 """Chests module. Contains all chasts logic."""
+from collections import defaultdict
 from random import choice
 from typing import Literal
 
 from runes import get_random_rune
+from settings import MIN_CHESTS_OPENING
 
 
 class BaseChest:
@@ -12,14 +14,18 @@ class BaseChest:
 
     _is_exhausted = False
 
-    def open(self):
-        """Open chest and get random rune of chest level."""
-        if not self._is_exhausted:
-            self._is_exhausted = True
-            self._perform_final_action()
-            return get_random_rune(self.level)
+    _openings_by_player: dict[str, int] = defaultdict(int)
 
-        print('Sorry, I am exhausted...')
+    def open(self, nickname: str):
+        """Open chest and get random rune of chest level."""
+        if self._is_exhausted:
+            print('Sorry, I am exhausted...')
+            return
+        self._openings_by_player[nickname] += 1
+        self._is_exhausted = True
+        self._perform_final_action()
+        return get_random_rune(self.level)
+
 
     def _perform_final_action(self) -> None:
         print('Do you want to buy me again bro?')
@@ -42,10 +48,26 @@ class DiamondChest(BaseChest):
     Gives you random rune of level 3.
     """
 
+    def open(self, nickname: str):
+        if self._openings_by_player[nickname] >= MIN_CHESTS_OPENING:
+            return super().open(nickname)
+        gold_to_open = MIN_CHESTS_OPENING - self._openings_by_player[nickname]
+        print(f'You have to open {gold_to_open} gold chests first!')
+
     level = 3
 
 
+
+for _ in range(8):
+    g = GoldChest()
+    g.open('Klim')
+
+
 g = GoldChest()
-print(g.open())
-d = DiamondChest()
-print(d.open())
+g.open('Mark')
+
+d_chest = DiamondChest()
+
+d_rune = d_chest.open('Klim')
+
+print(d_rune)

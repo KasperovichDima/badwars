@@ -1,5 +1,6 @@
 """Player model."""
 from protocols import Damageble, Weapon
+from settings import MAX_HP_LEVEL
 
 
 class Player:
@@ -9,7 +10,7 @@ class Player:
         """Player initializer."""
         self.nickname = nickname
         self._weapon = weapon
-        self._hp = 20  # FIXME: Magic number!
+        self._hp = MAX_HP_LEVEL
 
     def make_damage(self, damageble_object: Damageble) -> None:
         """Hit some damageble object using self weapon.

@@ -3,6 +3,8 @@
 from random import choice
 from typing import Literal
 
+from settings import MAX_HP_LEVEL
+
 
 class BaseRune:
     """Base rune class to inherit from."""
@@ -28,7 +30,7 @@ class RuneVp(BaseRune):
 
         But no more than maximum hp level.
         """
-        return min(hp + self._level, 20)  # FIXME: Magic number!
+        return min(hp + self._level, MAX_HP_LEVEL)
 
 
 class RunePr(BaseRune):
@@ -45,15 +47,15 @@ class RunePr(BaseRune):
         return max(damage - self._level, 0)
 
 
-class RuneAt(...):
-    """Attack rune.
+# class RuneAt(...):
+#     """Attack rune.
 
-    Gives an extra damage to your weapon depending on rune's level.
-    """
+#     Gives an extra damage to your weapon depending on rune's level.
+#     """
 
-    def encrease_damage(...) -> ...:
-        """Add rune lelel's value to your weapon's damage."""
-        ...
+#     def encrease_damage(...) -> ...:
+#         """Add rune lelel's value to your weapon's damage."""
+#         ...
 
 
 class RuneAc(BaseRune):
@@ -72,11 +74,11 @@ class RuneAc(BaseRune):
         for ind in range(self._level):
             chanses[ind] = True
         if choice(chanses):  # noqa: S311
-            return 20  # FIXME: Magic number!
+            return MAX_HP_LEVEL
         return hp
 
 
 def get_random_rune(level: Literal[1, 2, 3]):  # TODO: add return type
     """Return random rune of specified level."""
-    rune_class = choice((RuneVp, RunePr, RuneAc))  # noqa: S311  TODO: change to __subclasses__
+    rune_class = choice(BaseRune.__subclasses__())  # noqa: S311
     return  rune_class(level)
