@@ -1,4 +1,5 @@
 """Chests module. Contains all chasts logic."""
+import logging
 from collections import defaultdict
 from random import choice
 from typing import Literal
@@ -28,7 +29,7 @@ class BaseChest:
 
 
     def _perform_final_action(self) -> None:
-        print('Do you want to buy me again bro?')
+        logging.info('Do you want to buy me again bro?')
 
 
 class GoldChest(BaseChest):
@@ -55,19 +56,3 @@ class DiamondChest(BaseChest):
         print(f'You have to open {gold_to_open} gold chests first!')
 
     level = 3
-
-
-
-for _ in range(8):
-    g = GoldChest()
-    g.open('Klim')
-
-
-g = GoldChest()
-g.open('Mark')
-
-d_chest = DiamondChest()
-
-d_rune = d_chest.open('Klim')
-
-print(d_rune)
