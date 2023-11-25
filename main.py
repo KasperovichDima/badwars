@@ -12,19 +12,23 @@ TODO list:
 * добавить __subclasses__ в get_randome_rune. - Done!
 * Сделать чтобы алмазный сундук сожно было открыть только открыв 30 золотых. - Done!
 
-* Разобрать домашку.
+* Разобрать домашку. - Done!
+* Кратко разобрать логи - Done!
+
 * Сделать инвентарь.
-    * добавить типы для каждого предмета
     * создать класс инвентаря
     * сделать добавление в инвентарь
+    * Сделать enums в отдельном файле
+    * добавить типы для каждого предмета
+    * сделать протокол для предмета
+    * сделать протокол для руны
     * сделать получение предмета из инвентаря
-
 
 * Сделать применение рун.
 
 Вопросы:
 Марк: Что такое .gitignore? - Done!
-Клим: Как работать с логами.
+Клим: Как работать с логами. - Done!
 
 
 Разные типы оружия наносят разный урон разным блокам.
@@ -32,6 +36,7 @@ TODO list:
 import logging
 
 from chests import GoldChest
+from inventory import Inventory
 from player import Player
 from weapons import Sword, SwordType
 
@@ -41,12 +46,17 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 def create_new_player(nickname: str) -> Player:
     """Create new player on game map."""
     new_player_weapon = Sword(SwordType.WoodSword)
-    return Player(nickname, new_player_weapon)
+    new_player_inventory = Inventory()
+    return Player(nickname, new_player_weapon, new_player_inventory)
 
 
 klim = create_new_player('Klim')
 artem = create_new_player('Artem')
 mark = create_new_player('Mark')
-g = GoldChest()
 
-rune = g.open('Dima')
+
+
+g = GoldChest()
+rune = g.open(mark.nickname)
+if rune:
+    mark.pick_up_item(rune)

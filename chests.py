@@ -20,7 +20,7 @@ class BaseChest:
     def open(self, nickname: str):
         """Open chest and get random rune of chest level."""
         if self._is_exhausted:
-            print('Sorry, I am exhausted...')
+            logging.warning('Sorry, I am exhausted...')
             return
         self._openings_by_player[nickname] += 1
         self._is_exhausted = True
@@ -53,6 +53,6 @@ class DiamondChest(BaseChest):
         if self._openings_by_player[nickname] >= MIN_CHESTS_OPENING:
             return super().open(nickname)
         gold_to_open = MIN_CHESTS_OPENING - self._openings_by_player[nickname]
-        print(f'You have to open {gold_to_open} gold chests first!')
+        logging.info(f'You have to open {gold_to_open} gold chests first!')
 
     level = 3

@@ -1,13 +1,15 @@
 """Runes module. Contains all runes logic."""
-
 from random import choice
 from typing import Literal
 
+from enums import InventoryItemType
 from settings import MAX_HP_LEVEL
 
 
 class BaseRune:
     """Base rune class to inherit from."""
+
+    item_type = InventoryItemType.RUNE
 
     def __init__(self, level: Literal[1, 2, 3]) -> None:
         """Initialize rune with specified level."""
@@ -47,15 +49,15 @@ class RunePr(BaseRune):
         return max(damage - self._level, 0)
 
 
-# class RuneAt(...):
-#     """Attack rune.
+class RuneAt(BaseRune):
+    """Attack rune.
 
-#     Gives an extra damage to your weapon depending on rune's level.
-#     """
+    Gives an extra damage to your weapon depending on rune's level.
+    """
 
-#     def encrease_damage(...) -> ...:
-#         """Add rune lelel's value to your weapon's damage."""
-#         ...
+    def encrease_damage(self, damage: int) -> int:
+        """Add rune lelel's value to your weapon's damage."""
+        return damage + self._level
 
 
 class RuneAc(BaseRune):
