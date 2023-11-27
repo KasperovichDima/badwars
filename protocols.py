@@ -32,5 +32,12 @@ class InventoryProto(Protocol):
     """Inventory protocol."""
 
     def add_item(self, item: InventoryItem) -> None: ...
+
     @property
-    def invenory_size(self) -> int: ...
+    def inventory_size(self) -> int: ...
+
+
+class Rune(Protocol):
+    """Rune protocol with apply method."""
+
+    def appply(self, parametr: int) -> int: ...

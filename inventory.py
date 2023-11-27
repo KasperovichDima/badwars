@@ -22,6 +22,12 @@ class Inventory:
             logging.error('Inventory is full! Item will not be added!')
         self._items[item.item_type].append(item)
 
+    # def take_item(self, item_type: InventoryItemType, item_ind: int) -> InventoryItem:  # noqa: E501
+    #     """Return specified item from inventory."""
+
+    def __repr__(self) -> str:
+        for 
+
     @property
     def invenory_size(self) -> int:
         """Number of items in inventory."""
