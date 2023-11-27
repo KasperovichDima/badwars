@@ -21,7 +21,7 @@ TODO list:
     * Сделать enums в отдельном файле - Done!
     * добавить типы для каждого предмета - Done!
     * сделать протокол для предмета - Done!
-    * сделать протокол для руны
+    * сделать протокол для руны - Done!
     * сделать получение предмета из инвентаря
 
 
@@ -37,11 +37,11 @@ TODO list:
 """  # noqa: E501
 import logging
 
-from chests import GoldChest
 from inventory import Inventory
 from player import Player
 from weapons import Sword, SwordType
 
+#  Logging config.
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
 
@@ -55,8 +55,3 @@ def create_new_player(nickname: str) -> Player:
 klim = create_new_player('Klim')
 artem = create_new_player('Artem')
 mark = create_new_player('Mark')
-
-
-g = GoldChest()
-rune = g.open(mark.nickname)
-rune.
