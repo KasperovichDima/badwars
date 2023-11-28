@@ -32,9 +32,8 @@ class InventoryProto(Protocol):
     """Inventory protocol."""
 
     def add_item(self, item: InventoryItem) -> None: ...
-
-    @property
-    def inventory_size(self) -> int: ...
+    def show_items_by_type(self, target_type: InventoryItemType) -> tuple[InventoryItem, ...]: ...  # noqa: E501
+    def __len__(self) -> int: ...
 
 
 class Rune(Protocol):
