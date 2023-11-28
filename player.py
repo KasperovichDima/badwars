@@ -1,8 +1,13 @@
 """Player model."""
+import logging
+from typing import cast
+
+from enums import InventoryItemType
 from protocols import (
     Damageble,
     InventoryItem,
     InventoryProto,
+    Rune,
     WeaponProto,
 )
 from settings import MAX_HP_LEVEL
@@ -40,3 +45,16 @@ class Player:
     def pick_up_item(self, item: InventoryItem) -> None:
         """Put some item to inventory."""
         self._inventory.add_item(item)
+
+    def _apply_rune(self, rune_name: str, param: int) -> int:
+        """Aplly specified rune to specified parameter."""
+        runes = cast(
+            list[Rune],
+            self._inventory.show_items_by_type(InventoryItemType.RUNE)
+        )
+        for r in runes:
+            if r.__class__.__name__ is rune_name:
+                logging.info(f'{rune_name} was found! Applying!')
+                return r.appply(param)
+        logging.info(f'No {rune_name} was found...')
+        return param
