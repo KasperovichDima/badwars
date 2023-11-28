@@ -20,17 +20,20 @@ class Inventory:
         """
         if self._is_full:
             logging.error('Inventory is full! Item will not be added!')
+            return
         self._items[item.item_type].append(item)
 
-    @property
-    def inventory_size(self) -> int:
-        """Number of items in inventory."""
-        # invenory_size = 0
-        # for item_list in self._items.values():
-        #     invenory_size += len(item_list)
-        # return invenory_size
-        return sum(len(items) for items in self._items.values())
+    def show_items_by_type(
+            self,
+            target_type: InventoryItemType
+    ) -> tuple[InventoryItem, ...]:
+        """Show all items of specified type in inventory."""
+        return tuple(self._items[target_type])
 
     @property
     def _is_full(self) -> bool:
-        return self.inventory_size == MAX_INVENTORY_SIZE
+        return len(self) == MAX_INVENTORY_SIZE
+
+    def __len__(self) -> int:
+        """Count elements in inventory."""
+        return sum(len(items) for items in self._items.values())
