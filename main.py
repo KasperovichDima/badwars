@@ -42,6 +42,7 @@ import logging
 from inventory import Inventory
 from player import Player
 from weapons import Sword, SwordType
+from runes import RunePr, RuneVp
 
 #  Logging config.
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
@@ -56,4 +57,14 @@ def create_new_player(nickname: str) -> Player:
 
 klim = create_new_player('Klim')
 artem = create_new_player('Artem')
-mark = create_new_player('Mark')
+
+r_vp = RuneVp(1)
+r_pr = RunePr(1)
+
+klim.pick_up_item(r_vp)
+artem.pick_up_item(r_pr)
+while klim and artem:
+    klim.make_damage(artem)
+    artem.make_damage(klim)
+    logging.info(klim)
+    logging.info(artem)

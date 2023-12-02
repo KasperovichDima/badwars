@@ -34,13 +34,16 @@ class Player:
         Runes can be applied here.
         """
         self._weapon.hit(damageble_object)
+        self._hp = self._apply_rune('RuneVp', self._hp)
 
     def get_damage(self, damage: int) -> None:
         """Get damage from other player.
 
         Runes can be applied here.
         """
-        self._hp -= damage
+        self._hp -= self._apply_rune('RunePr', damage)
+        if self._hp < 0:
+            self._hp = 0
 
     def pick_up_item(self, item: InventoryItem) -> None:
         """Put some item to inventory."""
@@ -58,3 +61,9 @@ class Player:
                 return r.appply(param)
         logging.info(f'No {rune_name} was found...')
         return param
+
+    def __repr__(self) -> str:
+        return f'<{self.nickname}: {self._hp}>'
+
+    def __bool__(self) -> bool:
+        return bool(self._hp)

@@ -17,7 +17,7 @@ class BaseChest:
 
     _openings_by_player: dict[str, int] = defaultdict(int)
 
-    def open(self, nickname: str):
+    def open_chest(self, nickname: str):
         """Open chest and get random rune of chest level."""
         if self._is_exhausted:
             logging.warning('Sorry, I am exhausted...')
@@ -49,9 +49,9 @@ class DiamondChest(BaseChest):
     Gives you random rune of level 3.
     """
 
-    def open(self, nickname: str):
+    def open_chest(self, nickname: str):
         if self._openings_by_player[nickname] >= MIN_CHESTS_OPENING:
-            return super().open(nickname)
+            return super().open_chest(nickname)
         gold_to_open = MIN_CHESTS_OPENING - self._openings_by_player[nickname]
         logging.info(f'You have to open {gold_to_open} gold chests first!')
 
