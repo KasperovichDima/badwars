@@ -41,8 +41,8 @@ import logging
 
 from inventory import Inventory
 from player import Player
-from weapons import Sword, SwordType
 from runes import RunePr, RuneVp
+from weapons import Sword, SwordType
 
 #  Logging config.
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
