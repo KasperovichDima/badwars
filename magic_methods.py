@@ -1,5 +1,4 @@
 """Useful magic methods.
-
 __init__ *
 __repr__ *
 __del__ *
@@ -11,16 +10,18 @@ __gt__ >
 __le__ <=
 __ge__ >=
 __bool__
+__contains__.
 
-__in__
 __getitem__
 __setitem__
 __next__
 __iter__
 __len__
-"""
+"""  # noqa: D205
+from __future__ import annotations
+
 from enum import Enum, auto
-from typing import Self
+from typing import Self  # noqa: E402
 
 
 class MoneyType(Enum):
@@ -84,9 +85,9 @@ class Money:
 # print(m3)
 
 
-assert Money(MoneyType.Gold, 120) - Money(MoneyType.Gold, 30) == Money(MoneyType.Gold, 90)
-assert Money(MoneyType.Gold, 120) > Money(MoneyType.Gold, 30)
-print('TESTS PASSED!')
+# assert Money(MoneyType.Gold, 120) - Money(MoneyType.Gold, 30) == Money(MoneyType.Gold, 90)
+# assert Money(MoneyType.Gold, 120) > Money(MoneyType.Gold, 30)
+# print('TESTS PASSED!')
 
 
 class Wallet:
@@ -110,12 +111,88 @@ class Wallet:
         """
         return bool(self._banknotes)
 
-    def __in__(self, value: int) -> bool:
+    def __contains__(self, value: int) -> bool:
+        """Check if banknote is in the wallet."""
         return value in self._banknotes
 
 
-wallet = Wallet()
-wallet.add_money(10)
+# wallet = Wallet()
+# wallet.add_money(10)
+# wallet.add_money(5)
 
-if 5 in wallet:
-    print('Да, держи пятерку!')
+# if 5 in wallet:
+#     print('Да, держи пятерку!')
+# else:
+#     print('Сори, пятерки нет.')
+
+
+
+
+# class Appartment:
+
+#     __people_inside: list[str] = []
+
+#     def come_in(self, name: str) -> None:
+#         """Come into the appartment."""
+#         self.__people_inside.append(name)
+
+#     def go_out(self, name: str) -> None:
+#         """Go out of the appartment."""
+#         self.__people_inside.remove(name)
+
+#     def __contains__(self, name: str) -> bool:
+#         return name in self.__people_inside
+
+
+# appartment = Appartment()
+# appartment.come_in('Dima')
+# appartment.come_in('Nika')
+
+# if 'Nika' in appartment:
+#     print('Nika is inside!')
+
+
+
+class BankAccount:
+
+    def __init__(self, name: str, money: int) -> None:
+        self.name = name
+        self.money = money
+
+    def __repr__(self) -> str:
+        return f'<Account holder: {self.name}. Money ammount: {self.money}.>'
+
+    def __add__(self, add_money: int) -> BankAccount:
+        return BankAccount(
+            self.name,
+            self.money + add_money
+        )
+
+
+class Bank:
+
+    __accounts_by_ssn: dict[int, BankAccount] = {
+        45378: BankAccount('Nastya', 350),
+        87693: BankAccount('Mark', 3_000_000),
+        36941: BankAccount('Klim', 1_000_000_000)
+    }
+
+    def __getitem__(self, ssn: int) -> BankAccount:
+        """Позволяет получать у объекта данные по ключу.
+
+        Как у словаря или у списка.
+        """
+        return self.__accounts_by_ssn[ssn]
+
+    def __setitem__(self, ssn: int, account: BankAccount) -> None:
+        self.__accounts_by_ssn[ssn] = account
+
+
+bank = Bank()
+new_account = BankAccount('Dima', 45_000_000)
+bank[12345] = new_account
+my_account = bank[12345]
+
+print(my_account)
+my_account = my_account + 100
+print(my_account)
