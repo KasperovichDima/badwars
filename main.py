@@ -68,3 +68,5 @@ while klim and artem:
     artem.make_damage(klim)
     logging.info(klim)
     logging.info(artem)
+
+

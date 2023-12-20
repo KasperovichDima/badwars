@@ -16,5 +16,3 @@ class InventoryItemType(Enum):
 
     WEAPON = auto()
     RUNE = auto()
-
-    
